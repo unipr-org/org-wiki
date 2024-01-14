@@ -16,7 +16,8 @@ jobs:
 
       - name: Aggiunta variabili ambiente
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          github_token: ${{ secrets.WORKFLOW_TOKEN }}
+          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
         run: |
           git config user.name "${{ secrets.SC_GIT_USERNAME }}"
           git config user.email "${{ secrets.SC_GH_EMAIL }}"
