@@ -28,16 +28,13 @@ jobs:
           else
             echo "Nessuna modifica nel submodule actions_submodule"
           fi
-          ls -la ./
-          ls -la ./actions_submodule/
-          ls -la ./actions_submodule/.github/
-          ls -la ./actions_submodule/.github/workflows/
+          ls -la ./actions_submodule/shared_actions/
           
       - name: Copia file da actions_submodule
         run: |
-          cp -r ./actions_submodule/.github/workflows/* ./.github/workflows/
+          cp -r ./actions_submodule/shared_actions/* ./.github/workflows/
           git add ./.github/workflows/
-          git commit -m "@sync_submodule_action: Copia automatica di file da actions_submodule a ./.github/workflows/"
+          git commit -m "@sync_submodule_action: Copia automatica di file da actions_submodule/shared_actions/* a ./.github/workflows/"
       
       - name: Push submodule
         run: |
