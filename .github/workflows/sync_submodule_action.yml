@@ -1,0 +1,33 @@
+name: Sync submodule
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync-submodule:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Aggiornamento submodule
+        run: |
+          git submodule update --recursive --remote
+          git add actions_submodel
+          git commit -m "Aggiornamento automatico actions_submodel"
+          git push
+      
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
+      - name: Copia file da actions_submodel
+        run: |
+          # Assicurati di sostituire <percorso_sottopercorso_submodule> con il percorso del tuo submodule.
+          cp -r ./actions_submodel/.github/workflows/* ./.github/workflows/
+          git add ./.github/workflows/
+          git commit -m "Copia automatica di file da actions_submodel a ./.github/workflows/"
+          git push
+      
