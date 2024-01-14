@@ -16,18 +16,13 @@ jobs:
       - name: Aggiornamento submodule
         run: |
           git submodule update --recursive --remote
-          git add actions_submodel
-          git commit -m "Aggiornamento automatico actions_submodel"
-          git push
-      
-      - name: Checkout repository
-        uses: actions/checkout@v2
+          git add actions_submodule
+          git commit -m "Aggiornamento automatico actions_submodule"
         
       - name: Copia file da actions_submodel
         run: |
-          # Assicurati di sostituire <percorso_sottopercorso_submodule> con il percorso del tuo submodule.
-          cp -r ./actions_submodel/.github/workflows/* ./.github/workflows/
+          cp -r ./actions_submodule/.github/workflows/* ./.github/workflows/
           git add ./.github/workflows/
-          git commit -m "Copia automatica di file da actions_submodel a ./.github/workflows/"
+          git commit -m "Copia automatica di file da actions_submodule a ./.github/workflows/"
           git push
       
