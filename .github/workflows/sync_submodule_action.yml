@@ -22,12 +22,9 @@ jobs:
           
       - name: Aggiornamento submodule
         run: |
-          if git submodule update --recursive --remote | grep 'changed'; then
-            git add actions_submodule
-            git commit -m "@sync_submodule_action: Aggiornamento automatico actions_submodule"
-          else
-            echo "Nessuna modifica nel submodule actions_submodule"
-          fi
+          git submodule update --recursive --remote
+          git add actions_submodule
+          git commit -m "@sync_submodule_action: Aggiornamento automatico actions_submodule"
           ls -la ./actions_submodule/shared_actions/
           
       - name: Copia file da actions_submodule
