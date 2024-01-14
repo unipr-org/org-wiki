@@ -24,16 +24,18 @@ jobs:
           
       - name: Aggiornamento submodule
         run: |
-          git submodule update --recursive --remote
-          git add actions_submodule
-          git commit -m "@sync_submodule_action: Aggiornamento automatico actions_submodule"
-          ls -la ./actions_submodule/shared_actions/
+          cd ..
+          git clone git@github.com:unipr-org/org-actions.git
+          cd ./org-actions/
+          ls -la ./
+          ls -la ./shared_actions/
+          cd ..
           
       - name: Copia file da actions_submodule
         run: |
-          cp -r ./actions_submodule/shared_actions/* ./.github/workflows/
+          cp -r ./org-actions/shared_actions/* ./org-wiki/.github/workflows/
           git add ./.github/workflows/
-          git commit -m "@sync_submodule_action: Copia automatica di file da actions_submodule/shared_actions/* a ./.github/workflows/"
+          git commit -m "@sync_submodule_action: Copia automatica di file da ./org-actions/shared_actions/* a ./.github/workflows/"
       
       - name: Push submodule
         run: |
