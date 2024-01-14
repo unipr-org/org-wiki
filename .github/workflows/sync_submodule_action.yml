@@ -12,8 +12,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      
 
+      - name: Aggiunta variabili ambiente
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          SC_GIT_USERNAME: ${{ secrets.GH_TOKEN }}
+          SC_GIT_EMAIL: ${{ secrets.GH_TOKEN }}
+        run: |
+          git config user.name "$({env.SC_GIT_USERNAME})"
+          git config user.email "$({env.SC_GIT_EMAIL})"
       - name: Aggiornamento submodule
         run: |
           git submodule update --recursive --remote
@@ -27,13 +34,6 @@ jobs:
           git commit -m "Copia automatica di file da actions_submodule a ./.github/workflows/"
       
       - name: Push submodule
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          SC_GIT_USERNAME: ${{ secrets.GH_TOKEN }}
-          SC_GIT_EMAIL: ${{ secrets.GH_TOKEN }}
-          
         run: |
-          git config user.name "$({env.SC_GIT_USERNAME})"
-          git config user.email "$({env.SC_GIT_EMAIL})"
           git push origin main
       
