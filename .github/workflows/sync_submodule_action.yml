@@ -21,10 +21,13 @@ jobs:
           git config user.email "${{ secrets.SC_GH_EMAIL }}"
       - name: Aggiornamento submodule
         run: |
-          git submodule update --recursive --remote
-          git add actions_submodule
-          git commit -m "@sync_submodule_action: Aggiornamento automatico actions_submodule"
-        
+          if git submodule update --recursive --remote | grep 'changed'; then
+            git add actions_submodule
+            git commit -m "@sync_submodule_action: Aggiornamento automatico actions_submodule"
+          else
+            echo "Nessuna modifica nel submodule actions_submodule"
+          fi
+          
       - name: Copia file da actions_submodel
         run: |
           cp -r ./actions_submodule/.github/workflows/* ./.github/workflows/
