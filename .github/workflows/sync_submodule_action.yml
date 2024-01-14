@@ -19,6 +19,7 @@ jobs:
         run: |
           git config user.name "${{ secrets.SC_GIT_USERNAME }}"
           git config user.email "${{ secrets.SC_GH_EMAIL }}"
+          
       - name: Aggiornamento submodule
         run: |
           if git submodule update --recursive --remote | grep 'changed'; then
@@ -27,8 +28,12 @@ jobs:
           else
             echo "Nessuna modifica nel submodule actions_submodule"
           fi
+          ls -la ./
+          ls -la ./actions_submodule/
+          ls -la ./actions_submodule/.github/
+          ls -la ./actions_submodule/.github/workflows/
           
-      - name: Copia file da actions_submodel
+      - name: Copia file da actions_submodule
         run: |
           cp -r ./actions_submodule/.github/workflows/* ./.github/workflows/
           git add ./.github/workflows/
