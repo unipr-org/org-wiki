@@ -16,8 +16,6 @@ jobs:
 
       - name: Aggiornamento submodule
         run: |
-          git config user.name "$({secrets.SC_GIT_USERNAME})"
-          git config user.email "$({secrets.SC_GIT_EMAIL})"
           git submodule update --recursive --remote
           git add actions_submodule
           git commit -m "Aggiornamento automatico actions_submodule"
@@ -31,6 +29,11 @@ jobs:
       - name: Push submodule
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          SC_GIT_USERNAME: ${{ secrets.GH_TOKEN }}
+          SC_GIT_EMAIL: ${{ secrets.GH_TOKEN }}
+          
         run: |
+          git config user.name "$({env.SC_GIT_USERNAME})"
+          git config user.email "$({env.SC_GIT_EMAIL})"
           git push origin main
       
