@@ -17,12 +17,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Aggiunta variabili ambiente
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
         run: |
-          git config user.name "${{ secrets.SC_GIT_USERNAME }}"
-          git config user.email "${{ secrets.SC_GH_EMAIL }}"
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           ls -la
           ls -la ./actions_submodule/
           
