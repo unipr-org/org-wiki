@@ -37,8 +37,8 @@ jobs:
         run: |
           cp -r ./actions_submodule/shared_actions/* ./.github/workflows/
           git add ./.github/workflows/
-          git commit -m "@sync_submodule_action: Copia automatica di file da ./org-actions/shared_actions/* a ./.github/workflows/"
-      
+          git diff --exit-code --quiet || git commit -m "@sync_submodule_action: Copia automatica di file da ./org-actions/shared_actions/* a ./.github/workflows/"
+          
       - name: Push submodule
         run: |
           git push origin main
