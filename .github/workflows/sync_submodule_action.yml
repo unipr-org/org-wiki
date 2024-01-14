@@ -27,7 +27,8 @@ jobs:
           git submodule update --init --recursive
           git submodule update --recursive --remote
           ls -la ./
-          ls -la ./shared_actions/
+          ls -la ./actions_submodule/
+          ls -la ./actions_submodule/shared_actions/
           
       - name: Copia file da actions_submodule
         run: |
