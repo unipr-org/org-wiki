@@ -12,9 +12,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      
 
       - name: Aggiornamento submodule
         run: |
+          git config user.name "$({secrets.SC_GIT_USERNAME})"
+          git config user.email "$({secrets.SC_GIT_EMAIL})"
           git submodule update --recursive --remote
           git add actions_submodule
           git commit -m "Aggiornamento automatico actions_submodule"
@@ -24,5 +27,10 @@ jobs:
           cp -r ./actions_submodule/.github/workflows/* ./.github/workflows/
           git add ./.github/workflows/
           git commit -m "Copia automatica di file da actions_submodule a ./.github/workflows/"
-          git push
+      
+      - name: Push submodule
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          git push origin main
       
